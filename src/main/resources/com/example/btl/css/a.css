@@ -1,0 +1,43 @@
+.btn_image {
+    -fx-background-image: url("../image/22a6adf4-8440-4e90-932e-fea3c9262a12.jpg");
+    -fx-background-size: 100%; /* Hoặc sử dụng contain hoặc 100% 100% */
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+
+    /* Các thuộc tính khác */
+    -fx-border-color: #4CAF50;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-background-radius: 10px;
+}
+
+.btn_image:hover {
+    /* Tạo hiệu ứng hover khi chuột di chuyển vào button */
+    -fx-background-color: rgba(0, 0, 0, 0.2); /* Màu nền thay đổi khi hover */
+    -fx-border-color: #2E7D32; /* Màu viền thay đổi khi hover */
+}
+
+.btn_image:pressed {
+    /* Tạo hiệu ứng khi button bị bấm */
+    -fx-background-color: rgba(0, 0, 0, 0.4); /* Màu nền đậm hơn khi bấm */
+    -fx-border-color: #1B5E20; /* Màu viền khi bấm */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0.0, 0, 4); /* Tạo hiệu ứng đổ bóng khi nhấn */
+}
+.btn-circle {
+    width: 50px;                  /* Chiều rộng của button */
+    height: 50px;                 /* Chiều cao của button */
+    background-color: white;      /* Màu nền của button */
+    color: red;                   /* Màu chữ X */
+    font-size: 24px;              /* Kích thước chữ */
+    border: none;                 /* Bỏ viền */
+    border-radius: 50%;           /* Đặt radius bằng 50% để tạo hình tròn */
+    cursor: pointer;              /* Con trỏ khi hover */
+    display: flex;                /* Sử dụng flexbox để căn giữa nội dung */
+    align-items: center;          /* Căn giữa theo chiều dọc */
+    justify-content: center;      /* Căn giữa theo chiều ngang */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền khi hover */
+}
+
+.btn-circle:hover {
+    background-color: rgba(255, 0, 0, 0.3); /* Thay đổi màu nền khi hover */
+}

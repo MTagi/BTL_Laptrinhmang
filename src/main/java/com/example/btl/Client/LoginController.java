@@ -60,9 +60,14 @@ public class LoginController {
 
                 // Tạo đối tượng User
                 User user = new User(usernameReceived, passwordReceived, gmail, win, draw, loss, totalPoints, status, role);
-
+                if(role==0){
+                    switchToGameScreen(user);
+                }
+                else {
+                    switchToAdminScreen();
+                }
                 // Chuyển sang giao diện game và truyền đối tượng User
-                switchToGameScreen(user);
+
             } else {
                 // Nếu đăng nhập thất bại, hiển thị thông báo
                 showAlert("Thất bại", "Tài khoản hoặc mật khẩu không chính xác.");
@@ -102,6 +107,23 @@ public class LoginController {
                     e.printStackTrace();
                 }
             });
+
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Lỗi", "Không thể tải giao diện game.");
+        }
+    }
+    private void switchToAdminScreen() {
+        try {
+            // Tải giao diện GameScreen.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/MainMenu.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            // Lấy stage hiện tại từ nút đăng nhập
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Giao diện Game");
 
             stage.show();
         } catch (Exception e) {

@@ -8,7 +8,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #00FFFF;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="75.0" prefHeight="550.0" prefWidth="650.0" style="-fx-background-color: #C0C0C0; -fx-background-radius: 15px;">
@@ -32,7 +31,7 @@
             </Label>
             <Button layoutX="452.0" layoutY="511.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Mời bạn bè" />
             <Button layoutX="278.0" layoutY="519.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="95.0" text="Sẵn sàng" />
-            <AnchorPane layoutX="238.0" layoutY="130.0" prefHeight="432.0" prefWidth="315.0" style="-fx-background-color: #99FF66;" />
+            <AnchorPane layoutX="238.0" layoutY="130.0" prefHeight="432.0" prefWidth="315.0" style="-fx-background-color: #99FF66;" visible="false" />
          </children>
       </AnchorPane>
    </children>

@@ -1,5 +1,6 @@
 package com.example.btl.Client;
 
+import com.example.btl.Admin.DashboardUIHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -64,7 +65,7 @@ public class LoginController {
                     switchToGameScreen(user);
                 }
                 else {
-                    switchToAdminScreen();
+                    switchToAdminScreen(user);
                 }
                 // Chuyển sang giao diện game và truyền đối tượng User
 
@@ -72,7 +73,6 @@ public class LoginController {
                 // Nếu đăng nhập thất bại, hiển thị thông báo
                 showAlert("Thất bại", "Tài khoản hoặc mật khẩu không chính xác.");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Lỗi", "Không thể kết nối tới server.");
@@ -114,21 +114,38 @@ public class LoginController {
             showAlert("Lỗi", "Không thể tải giao diện game.");
         }
     }
-    private void switchToAdminScreen() {
+    private void switchToAdminScreen(User user) {
         try {
-            // Tải giao diện GameScreen.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/MainMenu.fxml"));
+            // Tải giao diện Dashboard.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/Dashboard.fxml"));
             Scene scene = new Scene(loader.load());
+
+            DashboardUIHandler dashboardUIHandler = loader.getController();
+            dashboardUIHandler.setAdmin(user);
 
             // Lấy stage hiện tại từ nút đăng nhập
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Giao diện Game");
+            stage.setTitle("Giao diện Admin");
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.setOnCloseRequest(event -> {
+                try (Socket socket = new Socket("localhost", 12345);
+                     PrintWriter output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true)) {
+
+                    // Gửi request logout để cập nhật trạng thái offline
+                    output.println("setOffline");
+                    output.println(user.getUsername());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Lỗi", "Không thể tải giao diện game.");
+            showAlert("Lỗi", "Không thể tải giao diện Admin.");
         }
     }
 

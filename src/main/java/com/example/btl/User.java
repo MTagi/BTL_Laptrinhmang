@@ -1,6 +1,10 @@
 package com.example.btl;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String username;
     private String password;
     private String gmail;
@@ -50,4 +54,13 @@ public class User {
 
     public int getRole() { return role; }
     public void setRole(int role) { this.role = role; }
+
+    public int getTotalGames() {
+        return win + loss + draw;
+    }
+
+    public String getWinRate() {
+        int totalGames = getTotalGames();
+        return totalGames == 0 ? "0%" : String.format("%.2f%%", (win * 100.0 / totalGames));
+    }
 }

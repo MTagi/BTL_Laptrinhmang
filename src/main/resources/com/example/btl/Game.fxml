@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #00FFFF;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.btl.Client.GameController">
+   <children>
+      <AnchorPane layoutX="75.0" layoutY="58.0" prefHeight="447.0" prefWidth="637.0" style="-fx-background-color: #C0C0C0; -fx-background-radius: 15px;">
+         <children>
+            <ImageView fitHeight="329.0" fitWidth="650.0" layoutY="72.0" pickOnBounds="true">
+               <image>
+                  <Image url="@image/0696853c-3ef2-4c4e-9d2b-9bf28f43a4a5.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="scissors" layoutX="84.0" layoutY="326.0" mnemonicParsing="false" onAction="#clickScissors" prefHeight="62.0" prefWidth="129.0" text="Keo" />
+            <Button fx:id="rock" layoutX="261.0" layoutY="326.0" mnemonicParsing="false" onAction="#clickRock" prefHeight="62.0" prefWidth="129.0" text="Bua" />
+            <Button fx:id="paper" layoutX="448.0" layoutY="326.0" mnemonicParsing="false" onAction="#clickPaper" prefHeight="62.0" prefWidth="129.0" text="Bao" />
+            <AnchorPane layoutX="185.0" layoutY="79.0" prefHeight="73.0" prefWidth="257.0" style="-fx-background-color: #1fd21c;">
+               <children>
+                  <Label layoutX="35.0" layoutY="28.0" text="Thời gian: " />
+                  <Label fx:id="timeStep" layoutX="161.0" layoutY="28.0" text="Label" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="72.0" fitWidth="78.0" layoutX="277.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/avt.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="72.0" fitWidth="78.0" layoutX="277.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/avt.jpg" />
+               </image>
+            </ImageView>
+            <AnchorPane fx:id="resultanchorpane" layoutX="113.0" layoutY="157.0" prefHeight="213.0" prefWidth="453.0" style="-fx-background-color: #1071cb;" visible="false">
+               <children>
+                  <Label fx:id="resultlabel" alignment="CENTER" layoutX="58.0" layoutY="69.0" prefHeight="85.0" prefWidth="306.0" text="Ban da thang">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Label fx:id="player1" alignment="CENTER" layoutX="309.0" layoutY="548.0" prefHeight="38.0" prefWidth="158.0" text="Bạn " textFill="#c82a2a">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <Label fx:id="player2" alignment="CENTER" layoutX="309.0" layoutY="14.0" prefHeight="38.0" prefWidth="158.0" text="Đối thủ" textFill="#c82a2a">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

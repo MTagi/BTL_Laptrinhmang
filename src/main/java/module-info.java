@@ -8,4 +8,6 @@ module com.example.btl {
     exports com.example.btl;
     exports com.example.btl.Client;
     opens com.example.btl.Client to javafx.fxml;
+    exports com.example.btl.Server;
+    opens com.example.btl.Server to javafx.fxml;
 }

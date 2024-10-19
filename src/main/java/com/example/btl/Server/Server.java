@@ -6,24 +6,24 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
     private static final int PORT = 12345;
     private static Connection connection;
+    private static Map<String, ClientHandler> onlineUsers = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Server đang lắng nghe tại port " + PORT);
-
-            // Kết nối tới cơ sở dữ liệu
-            connectToDatabase();
-
+            System.out.println("Server is running on port " + PORT);
             while (true) {
+                connectToDatabase();
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Client đã kết nối: " + clientSocket.getInetAddress());
-
-                // Tạo và khởi động một thread mới cho mỗi client
-                new ClientHandler(clientSocket, connection).start();
+                ClientHandler clientHandler = new ClientHandler(clientSocket, connection, onlineUsers);
+                clientHandler.start(); // Khởi động một thread cho mỗi client
             }
         } catch (IOException e) {
             e.printStackTrace();

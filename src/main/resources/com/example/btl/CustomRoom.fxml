@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #00FFFF;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.btl.Client.CustomRoomController">
+   <children>
+      <AnchorPane layoutX="75.0" prefHeight="550.0" prefWidth="650.0" style="-fx-background-color: #C0C0C0; -fx-background-radius: 15px;">
+         <children>
+            <Label fx:id="hello" alignment="CENTER" layoutX="116.0" layoutY="14.0" prefHeight="59.0" prefWidth="419.0" style="-fx-background-color: #00FF00; -fx-background-radius: 10px;" text="Chào mừng bạn đến với phòng 100">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="344.0" fitWidth="650.0" layoutY="83.0" pickOnBounds="true">
+               <image>
+                  <Image url="@image/0696853c-3ef2-4c4e-9d2b-9bf28f43a4a5.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="ready" layoutX="278.0" layoutY="519.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="95.0" text="Sẵn sàng" />
+            <AnchorPane layoutX="238.0" layoutY="130.0" prefHeight="432.0" prefWidth="315.0" style="-fx-background-color: #99FF66;" visible="false" />
+            <AnchorPane fx:id="friend" layoutX="438.0" layoutY="425.0" prefHeight="121.0" prefWidth="129.0" visible="false">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="78.0" layoutX="31.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/avt.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="namePlayer2" alignment="CENTER" layoutX="3.0" layoutY="80.0" prefHeight="33.0" prefWidth="130.0" text="Thang">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="friend1" layoutX="82.0" layoutY="425.0" prefHeight="121.0" prefWidth="129.0">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="78.0" layoutX="31.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/avt.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="namePlayer21" alignment="CENTER" layoutX="3.0" layoutY="80.0" prefHeight="33.0" prefWidth="130.0" text="Thang">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="friend11" layoutX="428.0" layoutY="425.0" prefHeight="121.0" prefWidth="129.0">
+               <children>
+                  <ImageView fitHeight="78.0" fitWidth="73.0" layoutX="30.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/addfriend.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="addFriend" layoutX="19.0" layoutY="88.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Mời bạn bè" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="friend111" layoutX="84.0" layoutY="425.0" prefHeight="121.0" prefWidth="129.0" visible="false">
+               <children>
+                  <ImageView fitHeight="78.0" fitWidth="73.0" layoutX="30.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/addfriend.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="addFriend1" layoutX="19.0" layoutY="88.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Mời bạn bè" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

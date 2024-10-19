@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -37,8 +36,8 @@
             <Font name="Copperplate Gothic Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="playNow" layoutX="346.0" layoutY="456.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="232.0" text="Chơi ngay" />
-      <Button layoutX="251.0" layoutY="537.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="218.0" text="Tạo phòng" />
+      <Button fx:id="playNow" layoutX="346.0" layoutY="456.0" mnemonicParsing="false" onAction="#clickPlayNow" prefHeight="81.0" prefWidth="232.0" text="Chơi ngay" />
+      <Button fx:id="createRoom" layoutX="251.0" layoutY="537.0" mnemonicParsing="false" onAction="#clickCreateRoom" prefHeight="45.0" prefWidth="218.0" text="Tạo phòng" />
       <Button layoutX="468.0" layoutY="537.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="212.0" text="Tìm phòng" />
       <ImageView fitHeight="81.0" fitWidth="95.0" layoutX="252.0" layoutY="456.0" pickOnBounds="true">
          <image>
@@ -66,7 +65,7 @@
          </font>
       </Label>
       <Circle fill="DODGERBLUE" layoutX="68.0" layoutY="25.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label alignment="CENTER" layoutX="14.0" layoutY="58.0" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #c4e016;" text="Thắng" textFill="#de5716">
+      <Label fx:id="namePlayer" alignment="CENTER" layoutX="14.0" layoutY="58.0" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #c4e016;" text="Thắng" textFill="#de5716">
          <font>
             <Font size="18.0" />
          </font>
@@ -89,7 +88,7 @@
       <Button layoutX="-1.0" layoutY="417.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="137.0" text="Xem bảng XH" />
       <Button layoutX="12.0" layoutY="456.0" mnemonicParsing="false" text="Xem YC" />
       <Button layoutX="79.0" layoutY="456.0" mnemonicParsing="false" text="Tìm bạn" />
-      <Button layoutX="5.0" layoutY="570.0" mnemonicParsing="false" text="Đăng xuất" />
+      <Button layoutX="5.0" layoutY="570.0" mnemonicParsing="false" onAction="#clickLogOut" text="Đăng xuất" />
       <AnchorPane layoutX="235.0" layoutY="43.0" prefHeight="480.0" prefWidth="370.0" style="-fx-background-color: #1090cb;" visible="false">
          <children>
             <TableView layoutX="7.0" layoutY="39.0" prefHeight="365.0" prefWidth="358.0">
@@ -163,11 +162,6 @@
             <Button layoutX="177.0" layoutY="29.0" mnemonicParsing="false" text="Tìm" />
          </children>
       </AnchorPane>
-      <Accordion>
-        <panes>
-          <TitledPane animated="false" text="untitled 1" />
-          <TitledPane animated="false" text="untitled 2" />
-        </panes>
-      </Accordion>
+      <Accordion />
    </children>
 </AnchorPane>

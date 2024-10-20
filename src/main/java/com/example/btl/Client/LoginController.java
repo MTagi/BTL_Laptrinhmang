@@ -129,6 +129,7 @@ public class LoginController {
             DashboardUIHandler dashboardUIHandler = loader.getController();
             dashboardUIHandler.setAdmin(user);
 
+
             // Lấy stage hiện tại từ nút đăng nhập
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(scene);
@@ -136,17 +137,7 @@ public class LoginController {
             stage.setResizable(false);
             stage.centerOnScreen();
 
-            stage.setOnCloseRequest(event -> {
-                try (Socket socket = new Socket("localhost", 12345);
-                     PrintWriter output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true)) {
-
-                    // Gửi request logout để cập nhật trạng thái offline
-                    output.println("setOffline");
-                    output.println(user.getUsername());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+            dashboardUIHandler.setOnClose(stage);
 
             stage.show();
         } catch (Exception e) {

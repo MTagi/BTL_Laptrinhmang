@@ -15,9 +15,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,7 +146,19 @@ public class DashboardUIHandler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        // Thiet lap ket noi toi server
         dashboardController = new DashboardController();
+        try {
+            dashboardController.openConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText("Không thể kết nối tới server");
+            alert.setContentText("Vui lòng thử lại sau");
+            alert.showAndWait();
+            System.exit(0);
+        }
 
         //Xu ly su kien chuyen trang
         btnInfoPage.setOnAction(e -> {
@@ -164,7 +178,8 @@ public class DashboardUIHandler implements Initializable {
         // THiet lap cac cot cua bang Ranking
         colRankingRT.setCellValueFactory(cellData -> {
             // Lấy thứ tự của người chơi trong danh sách
-            int rank = rankTable.getItems().indexOf(cellData.getValue()) + 1;
+            int currentPage = paginationRT.getCurrentPageIndex();
+            int rank = (currentPage * 10) + rankTable.getItems().indexOf(cellData.getValue()) + 1;
             return new SimpleIntegerProperty(rank).asObject();
         });
         colPlayerRT.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -196,6 +211,30 @@ public class DashboardUIHandler implements Initializable {
         lblAdminName.setText(admin.getUsername());
     }
 
+    public void setOnClose(Stage stage) {
+        // Đặt sự kiện đóng cửa sổ sẽ thực hiện logout
+        stage.setOnCloseRequest(event -> {
+            // Hiển thị hộp thoại xác nhận
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Xác nhận");
+            alert.setHeaderText("Bạn có chắc chắn muốn đăng xuất và thoát?");
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                if(dashboardController.logout(admin.getUsername())) {
+                    dashboardController.closeConnection();
+                    System.exit(0);
+                } else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Lỗi");
+                    errorAlert.setHeaderText("Đã xảy ra lỗi khi đăng xuất");
+                    errorAlert.setContentText("Vui lòng thử lại sau");
+                    errorAlert.showAndWait();
+                    event.consume();  // Hủy việc đóng cửa sổ nếu có lỗi
+                }
+            } else {
+                event.consume();  // Hủy việc đóng cửa sổ nếu người dùng chọn "Cancel"
+            }
+        });
+    }
 
     // Các phương thức xử lý sự kiện
     @FXML
@@ -253,6 +292,7 @@ public class DashboardUIHandler implements Initializable {
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             if(dashboardController.logout(admin.getUsername())) {
+                dashboardController.closeConnection();
                 System.exit(0);
             } else {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);

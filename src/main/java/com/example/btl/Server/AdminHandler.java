@@ -30,81 +30,82 @@ public class AdminHandler extends Thread {
 
     private void listening(){
         try {
-
-            Map<String, Object> receivedData = receiveData();
-            if(receivedData != null) {
-                String request_type = (String) receivedData.get("request_type");
-                if(request_type.equals("SEARCH_USER_BY_NAME")) {
-                    String name = (String) receivedData.get("name");
-                    String result = "false";
-                    ArrayList<User> students = searchByName(name);
-                    if(students != null){
-                        result = "true";
-                        sendData(Map.of("result", result, "students", students));
+            while (true) { // Vòng lặp để duy trì kết nối
+                Map<String, Object> receivedData = receiveData();
+                if (receivedData != null) {
+                    String request_type = (String) receivedData.get("request_type");
+                    if (request_type.equals("SEARCH_USER_BY_NAME")) {
+                        String name = (String) receivedData.get("name");
+                        String result = "false";
+                        ArrayList<User> students = searchByName(name);
+                        if (students != null) {
+                            result = "true";
+                            sendData(Map.of("result", result, "students", students));
+                        } else {
+                            sendData(Map.of("result", result));
+                        }
+                    } else if (request_type.equals("GET_PLAYER_RANK")) {
+                        String username = (String) receivedData.get("username");
+                        String result = "false";
+                        int rank = getPlayerRank(username);
+                        if (rank != -1) {
+                            result = "true";
+                            sendData(Map.of("result", result, "rank", rank));
+                        } else {
+                            sendData(Map.of("result", result));
+                        }
+                    } else if (request_type.equals("GET_NUM_OF_PLAYERS")) {
+                        String result = "false";
+                        int numOfPlayers = getNumOfPlayers();
+                        if (numOfPlayers != -1) {
+                            result = "true";
+                            sendData(Map.of("result", result, "numOfPlayers", numOfPlayers));
+                        } else {
+                            sendData(Map.of("result", result));
+                        }
+                    } else if (request_type.equals("GET_NUM_OF_ONLINE_PLAYERS")) {
+                        String result = "false";
+                        int numOfOnlinePlayers = getNumOfOnlinePlayers();
+                        if (numOfOnlinePlayers != -1) {
+                            result = "true";
+                            sendData(Map.of("result", result, "numOfOnlinePlayers", numOfOnlinePlayers));
+                        } else {
+                            sendData(Map.of("result", result));
+                        }
+                    } else if (request_type.equals("LOGOUT")) {
+                        String username = (String) receivedData.get("username");
+                        String result = "false";
+                        if (logout(username)) {
+                            result = "true";
+                            sendData(Map.of("result", result));
+                        } else {
+                            sendData(Map.of("result", result));
+                        }
+                        break; // Kết thúc phiên làm việc sau khi admin logout
+                    } else if (request_type.equals("GET_PLAYERS_IN_RANK")) {
+                        int min = (int) receivedData.get("min");
+                        int max = (int) receivedData.get("max");
+                        String result = "false";
+                        List<User> players = getPlayersInRank(min, max);
+                        if (players != null) {
+                            result = "true";
+                            sendData(Map.of("result", result, "players", players));
+                        } else {
+                            sendData(Map.of("result", result));
+                        }
+                    } else if (request_type.equals("DELETE_USER")) {
+                        String username = (String) receivedData.get("username");
+                        String result = "false";
+                        if (deleteUser(username)) {
+                            result = "true";
+                            sendData(Map.of("result", result));
+                        } else {
+                            sendData(Map.of("result", result));
+                        }
                     } else {
-                        sendData(Map.of("result", result));
+                        // Invalid request
+                        sendData(Map.of("result", "false"));
                     }
-                } else if(request_type.equals("GET_PLAYER_RANK")) {
-                    String username = (String) receivedData.get("username");
-                    String result = "false";
-                    int rank = getPlayerRank(username);
-                    if(rank != -1){
-                        result = "true";
-                        sendData(Map.of("result", result, "rank", rank));
-                    } else {
-                        sendData(Map.of("result", result));
-                    }
-                } else if(request_type.equals("GET_NUM_OF_PLAYERS")) {
-                    String result = "false";
-                    int numOfPlayers = getNumOfPlayers();
-                    if(numOfPlayers != -1){
-                        result = "true";
-                        sendData(Map.of("result", result, "numOfPlayers", numOfPlayers));
-                    } else {
-                        sendData(Map.of("result", result));
-                    }
-                } else if(request_type.equals("GET_NUM_OF_ONLINE_PLAYERS")) {
-                    String result = "false";
-                    int numOfOnlinePlayers = getNumOfOnlinePlayers();
-                    if(numOfOnlinePlayers != -1){
-                        result = "true";
-                        sendData(Map.of("result", result, "numOfOnlinePlayers", numOfOnlinePlayers));
-                    } else {
-                        sendData(Map.of("result", result));
-                    }
-                } else if(request_type.equals("LOGOUT")) {
-                    String username = (String) receivedData.get("username");
-                    String result = "false";
-
-                    if(logout(username)){
-                        result = "true";
-                        sendData(Map.of("result", result));
-                    } else {
-                        sendData(Map.of("result", result));
-                    }
-                } else if(request_type.equals("GET_PLAYERS_IN_RANK")) {
-                    int min = (int) receivedData.get("min");
-                    int max = (int) receivedData.get("max");
-                    String result = "false";
-                    List<User> players = getPlayersInRank(min, max);
-                    if(players != null){
-                        result = "true";
-                        sendData(Map.of("result", result, "players", players));
-                    } else {
-                        sendData(Map.of("result", result));
-                    }
-                } else if(request_type.equals("DELETE_USER")) {
-                    String username = (String) receivedData.get("username");
-                    String result = "false";
-                    if(deleteUser(username)){
-                        result = "true";
-                        sendData(Map.of("result", result));
-                    } else {
-                        sendData(Map.of("result", result));
-                    }
-                } else {
-                    // Invalid request
-                    sendData(Map.of("result", "false"));
                 }
             }
 

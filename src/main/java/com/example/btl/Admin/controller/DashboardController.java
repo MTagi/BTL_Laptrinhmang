@@ -2,6 +2,7 @@ package com.example.btl.Admin.controller;
 
 import com.example.btl.User;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +13,10 @@ public class DashboardController extends AdminController {
     }
 
     public List<User> searchUserByName(String name) {
-        openConnection();
+        //openConnection();
         sendData(Map.of("request_type", "SEARCH_USER_BY_NAME", "name", name));
         Map<String, Object> receivedData = receiveData();
-        closeConnection();
+        //closeConnection();
         if(receivedData != null) {
             String result = (String) receivedData.get("result");
             if(result.equals("true")) {
@@ -29,10 +30,10 @@ public class DashboardController extends AdminController {
     }
 
     public int getPlayerRank(String username) {
-        openConnection();
+        //openConnection();
         sendData(Map.of("request_type", "GET_PLAYER_RANK", "username", username));
         Map<String, Object> receivedData = receiveData();
-        closeConnection();
+        //closeConnection();
         if(receivedData != null) {
             String result = (String) receivedData.get("result");
             if(result.equals("true")) {
@@ -46,10 +47,10 @@ public class DashboardController extends AdminController {
     }
 
     public int getNumOfPlayers() {
-        openConnection();
+        //openConnection();
         sendData(Map.of("request_type", "GET_NUM_OF_PLAYERS"));
         Map<String, Object> receivedData = receiveData();
-        closeConnection();
+        //closeConnection();
         if(receivedData != null) {
             String result = (String) receivedData.get("result");
             if(result.equals("true")) {
@@ -63,10 +64,10 @@ public class DashboardController extends AdminController {
     }
 
     public int getNumOfOnlinePlayers() {
-        openConnection();
+        //openConnection();
         sendData(Map.of("request_type", "GET_NUM_OF_ONLINE_PLAYERS"));
         Map<String, Object> receivedData = receiveData();
-        closeConnection();
+        //closeConnection();
         if(receivedData != null) {
             String result = (String) receivedData.get("result");
             if(result.equals("true")) {
@@ -80,10 +81,10 @@ public class DashboardController extends AdminController {
     }
 
     public boolean logout(String username) {
-        openConnection();
+        //openConnection();
         sendData(Map.of("request_type", "LOGOUT", "username", username));
         Map<String, Object> receivedData = receiveData();
-        closeConnection();
+        //closeConnection();
         if(receivedData != null) {
             String result = (String) receivedData.get("result");
             return result.equals("true");
@@ -93,10 +94,10 @@ public class DashboardController extends AdminController {
     }
 
     public List<User> getPlayersInRank(int min, int max) {
-        openConnection();
+        //openConnection();
         sendData(Map.of("request_type", "GET_PLAYERS_IN_RANK", "min", min, "max", max));
         Map<String, Object> receivedData = receiveData();
-        closeConnection();
+        //closeConnection();
         if(receivedData != null) {
             String result = (String) receivedData.get("result");
             if(result.equals("true")) {
@@ -110,10 +111,10 @@ public class DashboardController extends AdminController {
     }
 
     public boolean deleteUser(String username) {
-        openConnection();
+        //openConnection();
         sendData(Map.of("request_type", "DELETE_USER", "username", username));
         Map<String, Object> receivedData = receiveData();
-        closeConnection();
+        //closeConnection();
         if(receivedData != null) {
             String result = (String) receivedData.get("result");
             return result.equals("true");

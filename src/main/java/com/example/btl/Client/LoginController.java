@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import com.example.btl.User;
 import com.example.btl.Server.ServerConnection;
+import com.example.btl.Admin.DashboardUIHandler;
 
 public class LoginController {
 
@@ -18,6 +19,7 @@ public class LoginController {
     @FXML
     private TextField passwordField;
     private ServerConnection serverConnection;
+
 
     public void setServerConnection(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
@@ -62,7 +64,7 @@ public class LoginController {
                     if (role == 0) {
                         switchToGameScreen(user);
                     } else {
-                        switchToAdminScreen();
+                        switchToAdminScreen(user);
                     }
                     // Chuyển sang giao diện game và truyền đối tượng User
 
@@ -85,27 +87,21 @@ public class LoginController {
 
             // Lấy GameController và truyền đối tượng User
             MainMenuController gameController = loader.getController();
-            gameController.setUser(user);
-            gameController.setServerConnection(serverConnection);
-            gameController.setup();
 
             // Lấy stage hiện tại từ nút đăng nhập
             Stage stage = (Stage) usernameField.getScene().getWindow();
+            gameController.setServerConnection(serverConnection, stage);
             stage.setScene(scene);
             stage.setTitle("Giao diện Game");
+            gameController.setUser(user);
+            gameController.setThread();
+            gameController.setup();
 
-//            // Thiết lập sự kiện đóng cửa sổ để cập nhật trạng thái offline
-//            stage.setOnCloseRequest(event -> {
-//                try (Socket socket = new Socket("localhost", 12345);
-//                     PrintWriter output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true)) {
-//
-//                    // Gửi request logout để cập nhật trạng thái offline
-//                    output.println("setOffline");
-//                    output.println(user.getUsername());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
+            // Thiết lập sự kiện đóng cửa sổ để cập nhật trạng thái offline
+            stage.setOnCloseRequest(event -> {
+                    serverConnection.sendMessage("setOffline");
+                    serverConnection.sendMessage(user.getUsername());
+            });
 
             stage.show();
         } catch (Exception e) {
@@ -113,16 +109,24 @@ public class LoginController {
             showAlert("Lỗi", "Không thể tải giao diện game.");
         }
     }
-    private void switchToAdminScreen() {
+    private void switchToAdminScreen(User user) {
         try {
-            // Tải giao diện GameScreen.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/MainMenu.fxml"));
+            // Tải giao diện Dashboard.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/Dashboard.fxml"));
             Scene scene = new Scene(loader.load());
+
+            DashboardUIHandler dashboardUIHandler = loader.getController();
+            dashboardUIHandler.setAdmin(user);
+
 
             // Lấy stage hiện tại từ nút đăng nhập
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Giao diện Game");
+            stage.setTitle("Giao diện Admin");
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            dashboardUIHandler.setOnClose(stage);
 
             stage.show();
         } catch (Exception e) {

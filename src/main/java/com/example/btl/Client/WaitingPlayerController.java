@@ -24,16 +24,23 @@ public class WaitingPlayerController {
     private User dataUser;
     private ServerConnection serverConnection;
     private volatile boolean running = true;
+    private Stage myStage;
+    private Integer idRoom;
     public void setUser(User data) {
         this.dataUser = data; // Lưu dữ liệu nhận được
     }
-    public void setServerConnection(ServerConnection serverConnection) {
+    public void setServerConnection(ServerConnection serverConnection, Stage myStage) {
         this.serverConnection = serverConnection;
+        this.myStage=myStage;
+        running = true;
         startListeningForInvite();
     }
-    private LocalDateTime parseStringToLocalDateTime(String dateTimeString) {
+    public void serIdroom(Integer idRoom){
+        this.idRoom=idRoom;
+    }
+    public static LocalDateTime parseStringToLocalDateTime(String dateTimeString) {
         // Định dạng chuỗi
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
         try {
             // Chuyển đổi chuỗi thành LocalDateTime
@@ -51,27 +58,28 @@ public class WaitingPlayerController {
                 while (running) {
                     String serverMessage = serverConnection.receiveMessage();
                     System.out.println(serverMessage);
+                    System.out.println("waiting");
                     if (serverMessage != null && "playgamenow".equals(serverMessage)) {
                         running=false;
+                        String idRoomnow=serverConnection.receiveMessage();
                         String idMatch=serverConnection.receiveMessage();
-                        System.out.println(idMatch);
                         String player1=serverConnection.receiveMessage();
-                        System.out.println(player1);
                         String player2=serverConnection.receiveMessage();
-                        System.out.println(player2);
                         LocalDateTime timeBegin=parseStringToLocalDateTime(serverConnection.receiveMessage());
                         Platform.runLater(() -> {
                             try {
                                 Match newMatch=new Match(Integer.parseInt(idMatch), player1, player2, timeBegin);
+                                this.running=false;
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/Game.fxml"));
                                 Scene scene = new Scene(loader.load());
                                 GameController gController = loader.getController();
-                                gController.setServerConnection(this.serverConnection);
+                                gController.setServerConnection(this.serverConnection, this.myStage);
                                 gController.setUser(dataUser);
                                 gController.setMatch(newMatch);
+                                gController.setInforRoom(Integer.parseInt(idRoomnow));
                                 gController.startCountdown();
                                 // Lấy stage hiện tại từ nút "exit"
-                                Stage stage = (Stage) exit.getScene().getWindow();
+                                Stage stage = this.myStage;
                                 stage.setScene(scene);
                                 stage.setTitle("Giao diện Game");
                                 stage.show();
@@ -85,6 +93,42 @@ public class WaitingPlayerController {
                 System.out.println("Error receiving message from server: " + ex.getMessage());
             }
         }).start();
+    }
+    public void clickExit() {
+        try {
+            // Tải giao diện GameScreen.fxml
+            this.running=false;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/MainMenu.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            // Lấy GameController và truyền đối tượng User
+            MainMenuController gameController = loader.getController();
+            gameController.setUser(dataUser);
+            gameController.setup();
+
+            // Lấy stage hiện tại từ nút đăng nhập
+            Stage stage = (Stage) exit.getScene().getWindow();
+            gameController.setServerConnection(serverConnection, stage);
+            stage.setScene(scene);
+            stage.setTitle("Giao diện Game");
+
+//            // Thiết lập sự kiện đóng cửa sổ để cập nhật trạng thái offline
+//            stage.setOnCloseRequest(event -> {
+//                try (Socket socket = new Socket("localhost", 12345);
+//                     PrintWriter output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true)) {
+//
+//                    // Gửi request logout để cập nhật trạng thái offline
+//                    output.println("setOffline");
+//                    output.println(user.getUsername());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            });
+
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

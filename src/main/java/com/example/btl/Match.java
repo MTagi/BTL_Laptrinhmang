@@ -1,10 +1,11 @@
 package com.example.btl;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import java.time.LocalDateTime;
 
-public class Match {
+public class Match implements Serializable {
     private int idMatch;
     private String player1;
     private String player2;

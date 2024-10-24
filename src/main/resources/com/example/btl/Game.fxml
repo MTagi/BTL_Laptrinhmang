@@ -19,20 +19,26 @@
             <Button fx:id="scissors" layoutX="84.0" layoutY="326.0" mnemonicParsing="false" onAction="#clickScissors" prefHeight="62.0" prefWidth="129.0" text="Keo" />
             <Button fx:id="rock" layoutX="261.0" layoutY="326.0" mnemonicParsing="false" onAction="#clickRock" prefHeight="62.0" prefWidth="129.0" text="Bua" />
             <Button fx:id="paper" layoutX="448.0" layoutY="326.0" mnemonicParsing="false" onAction="#clickPaper" prefHeight="62.0" prefWidth="129.0" text="Bao" />
-            <AnchorPane layoutX="185.0" layoutY="79.0" prefHeight="73.0" prefWidth="257.0" style="-fx-background-color: #1fd21c;">
+            <AnchorPane layoutX="185.0" layoutY="84.0" prefHeight="73.0" prefWidth="257.0" style="-fx-background-color: #1fd21c; -fx-background-radius: 15px;">
                <children>
-                  <Label layoutX="35.0" layoutY="28.0" text="Thời gian: " />
-                  <Label fx:id="timeStep" layoutX="161.0" layoutY="28.0" text="Label" />
+                  <Label layoutX="46.0" layoutY="23.0" text="Thời gian: ">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="timeStep" layoutX="142.0" layoutY="19.0" text="Label">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Label>
                </children>
             </AnchorPane>
             <ImageView fitHeight="72.0" fitWidth="78.0" layoutX="277.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@image/avt.jpg" />
+                  <Image url="@image/avatar2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="72.0" fitWidth="78.0" layoutX="277.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@image/avt.jpg" />
+                  <Image url="@image/avatar.png" />
                </image>
             </ImageView>
             <AnchorPane fx:id="resultanchorpane" layoutX="113.0" layoutY="157.0" prefHeight="213.0" prefWidth="453.0" style="-fx-background-color: #1071cb;" visible="false">

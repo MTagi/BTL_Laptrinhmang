@@ -1,0 +1,150 @@
+.mainFxmlClass {
+    -fx-background-color: #F9F9FF;
+}
+
+.sidebar {
+    -fx-background-color: #EDEDF4;
+}
+.btnLogout{
+    -fx-background-color: #415F91;
+    -fx-background-radius: 24;
+    -fx-padding: 10;
+    -fx-start-margin: 200;
+    -fx-cursor: hand;
+}
+
+.btnLogout:hover {
+    -fx-background-color: #FF5241;
+}
+
+.btnSidebar {
+     -fx-background-color: #415F91;
+     -fx-text-fill: #FFFFFF;
+     -fx-font-weight: bold;
+     -fx-cursor: hand;
+}
+
+.btnSidebar:hover {
+    -fx-background-color: #5776AA;
+}
+
+.cardStatistic {
+    -fx-background-color: #EDEDF4;
+    -fx-background-radius: 10;
+}
+
+.lblNameCard {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #415F91;
+}
+
+.lblValueCard {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+}
+
+.pageContentContainer {
+    -fx-background-color: #EDEDF4;
+    -fx-background-radius: 10;
+}
+
+.pageTitle {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #415F91;
+}
+
+.btnSearchInfo {
+    -fx-background-color: #415F91;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.btnSearchInfo:hover {
+    -fx-background-color: #5776AA;
+}
+
+.pagination > .pagination-control > .control-box {
+    -fx-spacing: 0;
+}
+
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-background-insets: 0, 1;
+    -fx-background-color: lightgray, #FAFAFA;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+}
+
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+    -fx-background-insets: 0;
+    -fx-background-color: lightgray;
+}
+
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: #415F91;
+    -fx-text-fill: white;
+}
+
+.playerCardInfo {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 2);
+}
+
+.playerCardInfo > .playerName {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #415F91;
+}
+
+.playerCardInfo > .playerRank{
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FF5241;
+}
+
+.playerCardInfo > .infoTitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #415F91;
+}
+
+.playerCardInfo > .infoValue {
+    -fx-font-size: 16px;
+    -fx-text-fill: #000000;
+}
+
+.playerCardInfo > .playerResult > .infoValue {
+    -fx-font-size: 16px;
+    -fx-text-fill: #000000;
+}
+
+.btnDelAccount {
+    -fx-background-color: #FF4C4C;
+    -fx-text-fill: #FFFFFF;
+
+}
+
+.btnDelAccount:hover {
+    -fx-background-color: #FF0000;
+}
+
+.btnHistoryCheck {
+    -fx-background-color: #415F91;
+    -fx-text-fill: #FFFFFF;
+}
+
+.btnHistoryCheck:hover {
+    -fx-background-color: #5776AA;
+}

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameController {
@@ -40,6 +41,8 @@ public class GameController {
     private Button scissors;
     private User dataUser;
     private Match dataMatch;
+    private Integer idRoom;
+    private Stage myStage;
     public void setUser(User data) {
         this.dataUser = data; // Lưu dữ liệu nhận được
     }
@@ -47,13 +50,16 @@ public class GameController {
     public void setMatch(Match data) {
         this.dataMatch = data; // Lưu dữ liệu nhận được
     }
-    public void setServerConnection(ServerConnection serverConnection) {
-        this.serverConnection = serverConnection;
+    public void setInforRoom(Integer idRoom){
+        this.idRoom=idRoom;
     }
-
+    public void setServerConnection(ServerConnection serverConnection, Stage myStage) {
+        this.serverConnection = serverConnection;
+        this.myStage=myStage;
+    }
     public void startCountdown() {
-        countdownTime=15;
         setup();
+        countdownTime=15;
         // Cập nhật label với thời gian ban đầu
         timeStep.setText(String.valueOf(countdownTime));
 

@@ -1,9 +1,14 @@
 package com.example.btl;
 
-public class CustomRoom {
+import java.io.Serializable;
+
+public class CustomRoom implements Serializable {
     private int idRoom;  // ID của phòng
     private String player1;  // Người chơi 1
     private String player2;  // Người chơi 2
+    private String player2status;
+    private String player1status;
+
 
     // Constructor
     public CustomRoom(int idRoom, String player1, String player2) {
@@ -42,4 +47,19 @@ public class CustomRoom {
         this.player2 = player2;
     }
 
+    public String getPlayer2status() {
+        return player2status;
+    }
+
+    public void setPlayer2status(String player2status) {
+        this.player2status = player2status;
+    }
+
+    public String getPlayer1status() {
+        return player1status;
+    }
+
+    public void setPlayer1status(String player1status) {
+        this.player1status = player1status;
+    }
 }

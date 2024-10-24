@@ -117,5 +117,32 @@ public class GameHandler {
             return null;
         }
     }
+    public boolean isPlayer1ChoiceNotNull(int roomId) {
+        String query = "SELECT player1status FROM customroom WHERE idroom = ? AND player1status IS NOT NULL";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, roomId); // Truyền idroom vào truy vấn
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                String updateQuery1 = "UPDATE customroom SET player1status = NULL WHERE idroom = ?";
+                PreparedStatement pstmt2 = connection.prepareStatement(updateQuery1);
+                pstmt2.setString(1, String.valueOf(roomId));
+                int affectedRows = pstmt2.executeUpdate();
+                return true;
+            }
+            else {
+                String updateQuery = "UPDATE customroom SET player1status = ? WHERE idroom = ?";
+                PreparedStatement pstmt1 = connection.prepareStatement(updateQuery);
+                // Thiết lập các tham số cho câu lệnh SQL
+                pstmt1.setString(1, "ready");     // Cập nhật player1choice với giá trị name
+                pstmt1.setString(2, String.valueOf(roomId));   // Điều kiện WHERE idroom = idRoom
+                // Thực thi câu lệnh cập nhật
+                int affectedRows = pstmt1.executeUpdate();
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 
 }

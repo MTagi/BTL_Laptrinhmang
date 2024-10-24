@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import com.example.btl.User;
@@ -14,10 +15,24 @@ import com.example.btl.Admin.DashboardUIHandler;
 public class LoginController {
 
     @FXML
-    private TextField usernameField;
+    private TextField gmaildk;
+
+    @FXML
+    private AnchorPane loginAnchorpane;
+
+    @FXML
+    private TextField matkhaudk;
 
     @FXML
     private TextField passwordField;
+
+    @FXML
+    private TextField taikhoandk;
+    @FXML
+    private AnchorPane dkianchorpane;
+
+    @FXML
+    private TextField usernameField;
     private ServerConnection serverConnection;
 
 
@@ -30,7 +45,7 @@ public class LoginController {
     public void handleLoginButtonAction() {
         try {
             ServerConnection serverConnection = new ServerConnection();
-            serverConnection.connect("localhost", 12345);
+            serverConnection.connect("26.250.117.172", 12345);
             this.serverConnection=serverConnection;
             String username = usernameField.getText();
             String password = passwordField.getText();
@@ -77,7 +92,45 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+    public void switchDangKi(){
+        loginAnchorpane.setVisible(false);
+        dkianchorpane.setVisible(true);
+    }
+    public void switchdnhap(){
+        loginAnchorpane.setVisible(true);
+        dkianchorpane.setVisible(false);
+    }
+    public void clickDki(){
+        try {
+            ServerConnection serverConnection = new ServerConnection();
+            serverConnection.connect("localhost", 12345);
+            this.serverConnection = serverConnection;
+            String usernamedk = taikhoandk.getText();
+            String passworddk = matkhaudk.getText();
+            String gmaildki= gmaildk.getText();
 
+            if (usernamedk.isEmpty() || passworddk.isEmpty() || gmaildki.isEmpty()) {
+                showAlert("Lỗi", "Thong tin không được để trống.");
+                return;
+            }
+            serverConnection.sendMessage("dangki");
+            serverConnection.sendMessage(usernamedk);
+            serverConnection.sendMessage(passworddk);
+            serverConnection.sendMessage(gmaildki);
+            String respon=serverConnection.receiveMessage();
+            if("dkithanhcong".equals(respon)){
+                showAlert("thong bao", "dang ki thanh cong.");
+                return;
+            }
+            else{
+                showAlert("thong bao", "tai khoan da ton tai.");
+                return;
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     // Chuyển sang giao diện game
     private void switchToGameScreen(User user) {
         try {
@@ -96,7 +149,6 @@ public class LoginController {
             gameController.setUser(user);
             gameController.setThread();
             gameController.setup();
-
             // Thiết lập sự kiện đóng cửa sổ để cập nhật trạng thái offline
             stage.setOnCloseRequest(event -> {
                     serverConnection.sendMessage("setOffline");

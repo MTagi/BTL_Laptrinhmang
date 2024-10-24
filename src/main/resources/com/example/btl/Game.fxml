@@ -41,11 +41,11 @@
                   <Image url="@image/avatar.png" />
                </image>
             </ImageView>
-            <AnchorPane fx:id="resultanchorpane" layoutX="113.0" layoutY="157.0" prefHeight="213.0" prefWidth="453.0" style="-fx-background-color: #1071cb;" visible="false">
+            <AnchorPane fx:id="resultanchorpane" layoutX="113.0" layoutY="157.0" prefHeight="213.0" prefWidth="453.0" style="-fx-background-color: #1071cb; -fx-background-radius: 20px;" visible="false">
                <children>
                   <Label fx:id="resultlabel" alignment="CENTER" layoutX="58.0" layoutY="69.0" prefHeight="85.0" prefWidth="306.0" text="Ban da thang">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="36.0" />
                      </font></Label>
                </children>
             </AnchorPane>

@@ -16,20 +16,15 @@
             <Image url="@image/b146e1c2-06b0-41a7-9e43-ff91f5801d90.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="238.0" layoutY="330.0" prefHeight="256.0" prefWidth="325.0" style="-fx-background-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px; -fx-border-color: #1071cb;">
+      <AnchorPane fx:id="loginAnchorpane" layoutX="238.0" layoutY="330.0" prefHeight="256.0" prefWidth="325.0" style="-fx-background-color: white; -fx-border-radius: 5px; -fx-background-radius: 10px; -fx-border-color: #1071cb;">
          <children>
-            <Label layoutX="135.0" layoutY="14.0" text="Đăng nhập">
+            <Label layoutX="100.0" layoutY="14.0" text="Đăng nhập">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <TextField fx:id="usernameField" focusTraversable="false" layoutX="22.0" layoutY="49.0" prefHeight="30.0" prefWidth="280.0" promptText="Tài khoản" />
             <TextField fx:id="passwordField" focusTraversable="false" layoutX="22.0" layoutY="101.0" prefHeight="30.0" prefWidth="280.0" promptText="Mật khẩu" />
-            <Text fill="#1071cb" layoutX="198.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quên mật khẩu " underline="true">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
             <Button layoutX="22.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="36.0" prefWidth="158.0" style="-fx-background-color: #1071cb;" text="Đăng nhập " textFill="WHITE">
                <font>
                   <Font size="16.0" />
@@ -40,11 +35,25 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button layoutX="221.0" layoutY="212.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="76.0" style="-fx-background-color: #1071cb;" text="Đăng kí" textFill="WHITE">
+            <Button layoutX="221.0" layoutY="212.0" mnemonicParsing="false" onAction="#switchDangKi" prefHeight="21.0" prefWidth="76.0" style="-fx-background-color: #1071cb;" text="Đăng kí" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="dkianchorpane" layoutX="275.0" layoutY="280.0" prefHeight="320.0" prefWidth="280.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 15px; -fx-border-color: #1071cb;" visible="false">
+         <children>
+            <TextField fx:id="taikhoandk" focusTraversable="false" layoutX="35.0" layoutY="59.0" prefHeight="30.0" prefWidth="196.0" promptText="Tài khoản" />
+            <Label alignment="CENTER" layoutX="71.0" layoutY="20.0" prefHeight="21.0" prefWidth="124.0" text="Đăng kí ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="matkhaudk" focusTraversable="false" layoutX="35.0" layoutY="108.0" prefHeight="30.0" prefWidth="196.0" promptText="Mật khẩu" />
+            <TextField fx:id="gmaildk" focusTraversable="false" layoutX="35.0" layoutY="160.0" prefHeight="30.0" prefWidth="196.0" promptText="Gmail" />
+            <Button fx:id="dangki2" layoutX="35.0" layoutY="214.0" mnemonicParsing="false" onAction="#clickDki" prefHeight="25.0" prefWidth="196.0" text="Đăng kí " />
+            <Button fx:id="dangnhap2" layoutX="159.0" layoutY="282.0" mnemonicParsing="false" onAction="#switchdnhap" prefHeight="25.0" prefWidth="116.0" text="Đăng nhập ngay " />
          </children>
       </AnchorPane>
    </children>

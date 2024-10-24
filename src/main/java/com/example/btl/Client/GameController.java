@@ -8,6 +8,8 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -181,6 +183,25 @@ public class GameController {
                     resultanchorpane.setVisible(false);
                     // Cập nhật label với thời gian ban đầu
                     resultlabel.setText(String.valueOf(s));
+                   try {
+                       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/MainMenu.fxml"));
+                       Scene scene = new Scene(loader.load());
+
+                       // Lấy GameController và truyền đối tượng User
+                       MainMenuController gameController = loader.getController();
+
+                       // Lấy stage hiện tại từ nút đăng nhập
+                       Stage stage = myStage;
+                       gameController.setServerConnection(serverConnection, stage);
+                       stage.setScene(scene);
+                       stage.setTitle("Giao diện Game");
+                       gameController.setUser(dataUser);
+                       gameController.setThread();
+                       gameController.setup();
+                    }
+                   catch (Exception e){
+                       e.printStackTrace();
+                   }
                 }
             }
         }));

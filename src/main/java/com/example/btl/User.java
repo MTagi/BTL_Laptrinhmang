@@ -12,7 +12,22 @@ public class User implements Serializable {
     private int totalPoints;
     private String status;
     private int role;
+    private int stt;
+    public User(String username, int stt) {
+        this.username = username;
+        this.stt = stt;
+    }
 
+    // Getters và Setters
+    // ... các phương thức hiện có ...
+
+    public int getStt() {
+        return stt;
+    }
+
+    public void setStt(int stt) {
+        this.stt = stt;
+    }
     public User(String username, String password, String gmail, int win, int draw, int loss, int totalPoints, String status, int role) {
         this.username = username;
         this.password = password;

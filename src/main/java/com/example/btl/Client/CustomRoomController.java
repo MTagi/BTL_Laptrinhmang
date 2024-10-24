@@ -90,12 +90,12 @@ public class CustomRoomController {
     public void startListeningForInvite() {
         this.listenTheard=new Thread(() -> {
             try {
-                while (this.running) {
+                while (running) {
                     String serverMessage = serverConnection.receiveMessage();
                     System.out.println(serverMessage);
                     System.out.println("custom");
                     if ("friendAcceptInvite".equals(serverMessage)) {
-                        this.running=false;
+                        running=false;
                         String nameFriend=serverConnection.receiveMessage();
                         Platform.runLater(() -> {
                             try {
@@ -107,8 +107,9 @@ public class CustomRoomController {
                                 e.printStackTrace();
                             }
                         });
-                        this.running=true;
+                        running=true;
                     }
+
                     if("waitingcustomroom".equals(serverMessage)){
                         try {
                             Platform.runLater(() -> {
@@ -121,16 +122,22 @@ public class CustomRoomController {
                     }
                     if("playnowcustomroom".equals(serverMessage)){
                         try {
-                            this.running=false;
+                            running=false;
                             String idRoomnow = serverConnection.receiveMessage();
+                            System.out.println("aaaaaaaa" +idRoomnow);
                             String idMatch = serverConnection.receiveMessage();
+                            System.out.println("aaaaaaaa"+idMatch);
                             String player1 = serverConnection.receiveMessage();
+                            System.out.println("aaaaaaaa"+player1);
                             String player2 = serverConnection.receiveMessage();
+                            System.out.println("aaaaaaaa"+player2);
                             LocalDateTime timeBegin = parseStringToLocalDateTime(serverConnection.receiveMessage());
 
                             Platform.runLater(() -> {
                                 try {
                                     Match newMatch = new Match(Integer.parseInt(idMatch), player1, player2, timeBegin);
+                                    this.running=false;
+                                    serverConnection.sendMessage("test");
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/Game.fxml"));
                                     Scene scene = new Scene(loader.load());
                                     GameController gController = loader.getController();
@@ -153,21 +160,23 @@ public class CustomRoomController {
                         catch (Exception e){
                             e.printStackTrace();
                         }
-                        this.running=true;
+                        running=true;
                     }
                     if("playgamenowcustomroom".equals(serverMessage)){
                         try {
-                            this.running=false;
-
+                            running=false;
                             String idRoomnow = serverConnection.receiveMessage();
                             String idMatch = serverConnection.receiveMessage();
                             String player1 = serverConnection.receiveMessage();
                             String player2 = serverConnection.receiveMessage();
+                            System.out.println(idRoomnow+" "+ idMatch+ " "+ player1+" "+player2);
                             LocalDateTime timeBegin = parseStringToLocalDateTime(serverConnection.receiveMessage());
 
                             Platform.runLater(() -> {
                                 try {
                                     Match newMatch = new Match(Integer.parseInt(idMatch), player1, player2, timeBegin);
+                                    this.running=false;
+                                    serverConnection.sendMessage("test");
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/Game.fxml"));
                                     Scene scene = new Scene(loader.load());
                                     GameController gController = loader.getController();
@@ -189,7 +198,7 @@ public class CustomRoomController {
                         catch (Exception e){
                             e.printStackTrace();
                         }
-                        this.running=true;
+                        running=true;
                     }
                 }
             } catch (IOException ex) {
@@ -299,21 +308,31 @@ public class CustomRoomController {
 
     }
     private LocalDateTime parseStringToLocalDateTime(String dateTimeString) {
-        // Định dạng chuỗi
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // Các định dạng chuỗi có thể có
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"), // ISO với nano giây
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")             // ISO cơ bản
+        };
 
-        try {
-            // Chuyển đổi chuỗi thành LocalDateTime
-            return LocalDateTime.parse(dateTimeString, formatter);
-        } catch (DateTimeParseException e) {
-            // Xử lý lỗi nếu định dạng không khớp
-            System.err.println("Error parsing date/time: " + e.getMessage());
-            return null; // Hoặc xử lý theo cách khác
+        // Thử phân tích chuỗi với từng định dạng
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                // Chuyển đổi chuỗi thành LocalDateTime
+                return LocalDateTime.parse(dateTimeString, formatter);
+            } catch (DateTimeParseException e) {
+                // Bỏ qua và thử với định dạng khác
+            }
         }
+
+        // Nếu tất cả định dạng đều thất bại
+        System.err.println("Error parsing date/time: Unable to parse " + dateTimeString);
+        return null; // Hoặc xử lý theo cách khác
     }
     public void clickReady(){
-        setThread();
+//        setThread();
         ready.setVisible(false);
+
         try {
             serverConnection.sendMessage("clickready");
             serverConnection.sendMessage(dataUser.getUsername());

@@ -40,8 +40,8 @@ public class InviteController {
             gameController.setServerConnection(this.serverConnection, this.myStage);
             gameController.setUser(this.dataUser);
             gameController.setIdRoom(this.idRoom);
-            gameController.setInviteToCustomRoom(String.valueOf(this.idRoom), dataUser.getUsername(), this.nameFriend);
             gameController.setThread();
+            gameController.setInviteToCustomRoom(String.valueOf(this.idRoom), dataUser.getUsername(), this.nameFriend);
             // Lấy stage hiện tại từ nút đăng nhập
             Stage stage = (Stage) this.myStage;
             stage.setScene(scene);

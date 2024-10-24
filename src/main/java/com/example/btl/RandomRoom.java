@@ -2,7 +2,7 @@ package com.example.btl;
 
 import java.io.Serializable;
 
-public class RandomRoom implements Serializable {
+public class RandomRoom {
     private int idRoom;  // ID của phòng
     private String player1;  // Người chơi 1
     private String player2;  // Người chơi 2

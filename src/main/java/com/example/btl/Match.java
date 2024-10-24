@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import java.time.LocalDateTime;
 
-public class Match implements Serializable {
+public class Match {
     private int idMatch;
     private String player1;
     private String player2;

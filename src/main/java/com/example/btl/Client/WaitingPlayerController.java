@@ -112,19 +112,6 @@ public class WaitingPlayerController {
             stage.setScene(scene);
             stage.setTitle("Giao diện Game");
 
-//            // Thiết lập sự kiện đóng cửa sổ để cập nhật trạng thái offline
-//            stage.setOnCloseRequest(event -> {
-//                try (Socket socket = new Socket("localhost", 12345);
-//                     PrintWriter output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true)) {
-//
-//                    // Gửi request logout để cập nhật trạng thái offline
-//                    output.println("setOffline");
-//                    output.println(user.getUsername());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
-
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

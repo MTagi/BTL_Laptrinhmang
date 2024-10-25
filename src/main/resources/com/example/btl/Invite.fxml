@@ -15,10 +15,10 @@
       </ImageView>
       <AnchorPane layoutX="253.0" layoutY="22.0" prefHeight="278.0" prefWidth="321.0" style="-fx-background-color: #FFFF;">
          <children>
-            <Label alignment="CENTER" layoutX="36.0" layoutY="28.0" prefHeight="59.0" prefWidth="250.0" text="Bạn nhận được lời mời từ người chơi  Thang" />
+            <Label fx:id="loimoi" alignment="CENTER" layoutX="36.0" layoutY="28.0" prefHeight="59.0" prefWidth="250.0" text="Bạn nhận được lời mời từ người chơi  Thang" />
             <Label alignment="CENTER" layoutX="36.0" layoutY="80.0" prefHeight="59.0" prefWidth="250.0" text="Bạn có sẵn sàng vào phòng?" />
             <Button fx:id="accept" layoutX="61.0" layoutY="194.0" mnemonicParsing="false" onAction="#clickAccept" text="Đồng ý" />
-            <Button layoutX="187.0" layoutY="194.0" mnemonicParsing="false" text="Từ chối" />
+            <Button layoutX="187.0" layoutY="194.0" mnemonicParsing="false" onAction="#clickExit" text="Từ chối" />
          </children>
       </AnchorPane>
    </children>

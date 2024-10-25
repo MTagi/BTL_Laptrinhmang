@@ -179,6 +179,7 @@ public class ClientHandler extends Thread {
                         ClientHandler friend = onlineUsers.get(nameFriend);
                         if (friend != null) {
                             // Gửi lời mời đến người bạn
+                            friend.output.println("null");
                             friend.output.println("ReceiveInvite");
                             friend.output.println(userInvite);
                             friend.output.println(idRoom);

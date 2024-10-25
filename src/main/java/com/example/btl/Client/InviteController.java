@@ -16,15 +16,20 @@ public class InviteController {
     private String nameFriend;
     private Integer idRoom;
     private User dataUser;
+    @FXML
+    private Label loimoi;
     public void setServerConnection(ServerConnection serverConnection, Stage stage) {
         this.serverConnection = serverConnection;
         this.myStage=stage;
     }
+
     public void setDataUser(User user){
         this.dataUser=user;
+
     }
     public void setInforRoom(String nameFriend, Integer idRoom){
         this.nameFriend=nameFriend;
+        loimoi.setText("Bạn có lời mời từ người chơi "+this.nameFriend);
         this.idRoom=idRoom;
     }
     public void  clickAccept(){
@@ -51,6 +56,28 @@ public class InviteController {
             e.printStackTrace();
         }
     }
-
+    public void clickExit(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/btl/MainMenu.fxml"));
+            Scene scene = new Scene(loader.load());
+            // Lấy GameController và truyền đối tượng User
+            MainMenuController gameController = loader.getController();
+            // Lấy stage hiện tại từ nút đăng nhập
+            Stage stage = myStage;
+            gameController.setServerConnection(serverConnection, stage);
+            gameController.setUser(dataUser);
+            gameController.setThread();
+            gameController.setup();
+            stage.setScene(scene);
+            stage.setTitle("Giao diện Game");
+            gameController.setUser(dataUser);
+            gameController.setThread();
+            gameController.setup();
+            stage.show();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

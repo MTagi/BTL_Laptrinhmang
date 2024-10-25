@@ -103,7 +103,7 @@ public class LoginController {
     public void clickDki(){
         try {
             ServerConnection serverConnection = new ServerConnection();
-            serverConnection.connect("localhost", 12345);
+            serverConnection.connect("26.250.117.172", 12345);
             this.serverConnection = serverConnection;
             String usernamedk = taikhoandk.getText();
             String passworddk = matkhaudk.getText();
@@ -140,7 +140,6 @@ public class LoginController {
 
             // Lấy GameController và truyền đối tượng User
             MainMenuController gameController = loader.getController();
-
             // Lấy stage hiện tại từ nút đăng nhập
             Stage stage = (Stage) usernameField.getScene().getWindow();
             gameController.setServerConnection(serverConnection, stage);

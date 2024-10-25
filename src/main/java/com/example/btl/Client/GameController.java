@@ -157,6 +157,9 @@ public class GameController {
                     result="loss";
                 }
             }
+            if(yourchoice==null && mychoice!=null){
+                result="win";
+            }
             startCountdown1("you "+ result);
             if(result.equals("draw")){
                 dataUser.setDraw(dataUser.getDraw()+1);
@@ -210,14 +213,15 @@ public class GameController {
                        serverConnection.sendMessage(String.valueOf(dataUser.getTotalPoints()));
                        serverConnection.sendMessage(dataUser.getStatus());
                        serverConnection.sendMessage(String.valueOf(dataUser.getRole()));
+                       gameController.setUser(dataUser);
+                       gameController.setThread();
+                       gameController.setup();
                        // Lấy stage hiện tại từ nút đăng nhập
                        Stage stage = myStage;
                        gameController.setServerConnection(serverConnection, stage);
                        stage.setScene(scene);
                        stage.setTitle("Giao diện Game");
-                       gameController.setUser(dataUser);
-                       gameController.setThread();
-                       gameController.setup();
+                       stage.show();
                     }
                    catch (Exception e){
                        e.printStackTrace();

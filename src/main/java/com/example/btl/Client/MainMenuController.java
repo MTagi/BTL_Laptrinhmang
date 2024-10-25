@@ -297,6 +297,7 @@ public class MainMenuController {
                     // Lấy GameController và truyền đối tượng User
                     CustomRoomController gameController = loader.getController();
                     gameController.setServerConnection(this.serverConnection, this.myStage);
+
                     gameController.setUser(this.dataUser);
                     gameController.setIdRoom(Integer.parseInt(idphong));
                     gameController.setThread();

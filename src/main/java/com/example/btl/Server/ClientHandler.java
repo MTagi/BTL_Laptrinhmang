@@ -300,8 +300,11 @@ public class ClientHandler extends Thread {
                             output.println("         ");
                             output.println("noroom");
                         }
-
                         break;
+                    case "updateScore":
+                        updateUser(input.readLine(), input.readLine(), input.readLine(), Integer.parseInt(input.readLine()),
+                                Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()),
+                                input.readLine(), input.readLine());
                     default:
                         output.println("Lệnh không hợp lệ.");
                         break;
@@ -312,6 +315,37 @@ public class ClientHandler extends Thread {
             e.printStackTrace();
         }
 
+    }
+    public void updateUser(String username, String password, String gmail, int win, int draw, int loss, int totalPoints, String status, String role) {
+        // Chuỗi kết nối đến cơ sở dữ liệu
+        // Câu lệnh SQL để cập nhật thông tin người dùng
+        String sql = "UPDATE users SET password = ?, gmail = ?, win = ?, draw = ?, loss = ?, totalPoints = ?, status = ?, role = ? WHERE username = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            // Thiết lập các giá trị cho tham số ?
+            pstmt.setString(1, password);
+            pstmt.setString(2, gmail);
+            pstmt.setInt(3, win);
+            pstmt.setInt(4, draw);
+            pstmt.setInt(5, loss);
+            pstmt.setInt(6, totalPoints);
+            pstmt.setString(7, status);
+            pstmt.setString(8, role);
+            pstmt.setString(9, username);
+
+            // Thực thi câu lệnh update
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Kiểm tra kết quả
+            if (rowsAffected > 0) {
+                System.out.println("Dữ liệu của người dùng đã được cập nhật thành công.");
+            } else {
+                System.out.println("Không tìm thấy người dùng với username: " + username);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi cập nhật dữ liệu người dùng: " + e.getMessage());
+        }
     }
     private String checkCustomRoom(int roomId){
         String sql = "SELECT player1, player2 FROM customroom WHERE idroom = ?";

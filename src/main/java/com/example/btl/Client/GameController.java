@@ -158,7 +158,18 @@ public class GameController {
                 }
             }
             startCountdown1("you "+ result);
-
+            if(result.equals("draw")){
+                dataUser.setDraw(dataUser.getDraw()+1);
+                dataUser.setTotalPoints(dataUser.getTotalPoints()+1);
+            }
+            if(result.equals("win")){
+                dataUser.setWin(dataUser.getWin()+1);
+                dataUser.setTotalPoints(dataUser.getTotalPoints()+2);
+            }
+            if(result.equals("loss")){
+                dataUser.setLoss(dataUser.getLoss()+1);
+                dataUser.setTotalPoints(dataUser.getTotalPoints()+0);
+            }
         }
         catch (Exception e){
             e.printStackTrace();
@@ -189,7 +200,16 @@ public class GameController {
 
                        // Lấy GameController và truyền đối tượng User
                        MainMenuController gameController = loader.getController();
-
+                       serverConnection.sendMessage("updateScore");
+                       serverConnection.sendMessage(dataUser.getUsername());
+                       serverConnection.sendMessage(dataUser.getPassword());
+                       serverConnection.sendMessage(dataUser.getGmail());
+                       serverConnection.sendMessage(String.valueOf(dataUser.getWin()));
+                       serverConnection.sendMessage(String.valueOf(dataUser.getDraw()));
+                       serverConnection.sendMessage(String.valueOf(dataUser.getLoss()));
+                       serverConnection.sendMessage(String.valueOf(dataUser.getTotalPoints()));
+                       serverConnection.sendMessage(dataUser.getStatus());
+                       serverConnection.sendMessage(String.valueOf(dataUser.getRole()));
                        // Lấy stage hiện tại từ nút đăng nhập
                        Stage stage = myStage;
                        gameController.setServerConnection(serverConnection, stage);
